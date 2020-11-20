@@ -1,3 +1,33 @@
-body {
-  margin: 0;
+@import "variables";
+@import "normalize";
+
+@each $day in $days {
+  .calendar-#{$day} :nth-child(-n + #{$day}) {
+    width: $blockSize;
+    height: $blockSize;
+    background-color: #eee;
+    border: 1px solid black;
+    text-align: center;
+    line-height: $blockSize;
+    cursor: pointer;
+    margin: 0 1px 1px 0;
+  }
+
+  @for $i from 1 through $day {
+    .calendar-#{$day} :nth-child(#{$i})::before {
+      content: "#{$i}";
+    }
+  }
+
+  .calendar-#{$day} :nth-child(-n + #{$day}):hover {
+    background-color: pink;
+    transform: translate(0, -20px);
+    transition: 0.5s ;
+  }
+  
+  @each $day, $j in $firstDay {
+    .calendar-#{$day} :first-child {
+      margin-left: ($blockSize + 1px) * $j ;
+    }
+  }
 }
